@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--Behavior를 통해서 자식 뷰들 간에 다양한 상호작용(interaction)을 제공합니다.-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--constraint 레이아웃과의 start, end 관계를 정의했으므로 width를 0dp로 설정-->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_product_detail"
-        android:layout_width="0dp"
+<!-- AppBarLayout는 CoordinatorLayout의 바로 아래 자식이어야 합니다.-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/shoppi_white">
+        <!-- scrollFlags : 아래로 스크롤 시 앱바가 사라지고 위로 스크롤 시 앱바가 나타남-->
+        <!-- 스크롤 이벤트와 직접 연관되어 스크롤 됩니다.-->
+        <!-- 스크롤 이벤트에 반응할 모든 뷰에 설정해줘야 합니다.-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_product_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_gnb_back" />
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <!-- 사용자가 스크롤이 가능하게 하는 뷰-->
     <!-- 이 밑부분은 전부 스크롤이 가능함-->
     <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_product_detail">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -142,4 +148,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
