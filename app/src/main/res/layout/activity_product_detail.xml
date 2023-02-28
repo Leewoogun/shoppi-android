@@ -13,79 +13,130 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- 이미지의 원래 크기가 아닌 제약조건을 걸고 이미지 크기를 최적화 하기 위해 0dp로 설정 -->
-    <!-- DimensionRatio : width를 기준으로 1:1로 맞춤-->
-    <!-- 이미지는 src 키워드로 불러온다-->
-    <!-- contentDescription : 이미지의 목적을 나타내는 글귀-->
-    <ImageView
-        android:id="@+id/iv_product_detail_thumbnail"
+    <!-- 사용자가 스크롤이 가능하게 하는 뷰-->
+    <!-- 이 밑부분은 전부 스크롤이 가능함-->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="@string/description_product_detail_thumbnail"
-        android:src="@drawable/img_pdp_top_01"
-        app:layout_constraintDimensionRatio="w, 1:1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_product_detail" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_product_detail">
 
-    <TextView
-        android:id="@+id/tv_product_detail_brand_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="twg. official"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_product_detail_thumbnail" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_product_detail_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:text="[19차 리오더] 페이크 레더 숏 테일러 자켓 블랙(1 color)"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_product_detail_brand_name" />
+            <!-- 이미지의 원래 크기가 아닌 제약조건을 걸고 이미지 크기를 최적화 하기 위해 0dp로 설정 -->
+            <!-- DimensionRatio : width를 기준으로 1:1로 맞춤-->
+            <!-- 이미지는 src 키워드로 불러온다-->
+            <!-- contentDescription : 이미지의 목적을 나타내는 글귀-->
+            <ImageView
+                android:id="@+id/iv_product_thumbnail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/description_product_thumbnail"
+                android:src="@drawable/img_pdp_top_01"
+                app:layout_constraintDimensionRatio="w, 1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_product_detail_discount_rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="10%"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_product_detail_label" />
+            <TextView
+                android:id="@+id/tv_product_brand_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="twg. official"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_product_thumbnail" />
 
-    <TextView
-        android:id="@+id/tv_product_detail_discount_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="99,800원"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_product_detail_discount_rate"
-        app:layout_constraintStart_toEndOf="@id/tv_product_detail_discount_rate"
-        app:layout_constraintTop_toTopOf="@id/tv_product_detail_discount_rate" />
+            <TextView
+                android:id="@+id/tv_product_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="[19차 리오더] 페이크 레더 숏 테일러 자켓 블랙(1 color)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_brand_name" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:text="110,000원"
-        android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_product_detail_discount_price"
-        app:layout_constraintStart_toEndOf="@id/tv_product_detail_discount_price"
+            <TextView
+                android:id="@+id/tv_product_discount_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:text="10%"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_label" />
 
-        />
+            <TextView
+                android:id="@+id/tv_product_discount_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="99,800원"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_product_discount_rate"
+                app:layout_constraintStart_toEndOf="@id/tv_product_discount_rate"
+                app:layout_constraintTop_toTopOf="@id/tv_product_discount_rate" />
 
+            <!-- BaseLine (TextView 라인 맞추기)-->
+            <TextView
+                android:id="@+id/tv_product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="110,000원"
+                android:textSize="14sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_product_discount_price"
+                app:layout_constraintStart_toEndOf="@id/tv_product_discount_price" />
 
+            <!-- 위 아래를 구분하기 위한 선-->
+            <View
+                android:id="@+id/view_divider_product"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="#eeeff1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_price" />
+
+            <TextView
+                android:id="@+id/tv_product_detail_image_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/title_product_detail_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_divider_product" />
+            <!-- android:scaleType="centerCrop" : 이미지의 가로/세로의 길이 중 짧은 쪽을 ImageView의 레이아웃에 꽉 차게  크기를 맞춰서 출력한다.
+             이 때 원본 이미지 가로/세로의 비율은 유지되고 레이아웃 영역에서 벗어난 이미지는 출력되지 않는다-->
+            <ImageView
+                android:id="@+id/iv_product_detail_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_pdp_top_01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_detail_image_title"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/description_product_detail_image" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
