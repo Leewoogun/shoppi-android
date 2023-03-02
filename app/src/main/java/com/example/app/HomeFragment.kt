@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
             // HostActivity에 Fragment를 참조해야므로 parentFragmentManager
             // Transaction : Fragment의 추가 삭제 교체를 요청
             val transaction = parentFragmentManager.beginTransaction()
+            // add 메소드를 사용하여 container view에 ProductDetailFragment 추가
             transaction.add(R.id.container_main, ProductDetailFragment())
             transaction.commit()
 
