@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     // Layout을 inflate 하는 과정
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_detail)
+        setContentView(R.layout.activity_main)
         Log.d(TAG, "onCreate")
     }
 
