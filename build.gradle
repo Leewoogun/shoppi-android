@@ -5,6 +5,11 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 
+// 프로젝트 전역에서 참조할 수 있는 상수는 project 모듈의 build.gradle 파일에서 관리
+ext{
+    navVersion = '2.3.5'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

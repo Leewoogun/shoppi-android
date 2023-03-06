@@ -3,6 +3,8 @@ package com.example.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private const val TAG = "MainActivity"
@@ -19,6 +21,14 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navigation_main)
         bottomNavigationView.itemIconTintList = null
+
+        // find 혹은 get으로 시작하는 method는 찾고자 하는 객체가 없을수도 있으므로 nullable함
+       val navController = supportFragmentManager.findFragmentById(R.id.container_main)?.findNavController()
+       navController?.let{
+           // 바텀 navigation view와 NavHostFragment를 연결
+           // 바텀 navigation을 클릭했을 때 화면 이동을 처리해주는 controller
+           bottomNavigationView.setupWithNavController(it)
+       }
     }
 
     // on으로 시작하는 메서드(name convention) : 어떠한 이벤트를 알려주는 메서드
