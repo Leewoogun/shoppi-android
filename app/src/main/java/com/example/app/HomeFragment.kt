@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.json.JSONObject
 
 class HomeFragment : Fragment() {
 
@@ -50,5 +51,21 @@ class HomeFragment : Fragment() {
         val assetLoader = AssetLoader()
         val homeData = assetLoader.getJsonString(requireContext(), "home.json" )
         Log.d("homeData", homeData ?: "error")
+
+
+        /*
+        JSON 데이터 파싱
+        중괄호 묶음 : jsonObject로 데이터 받기
+        대괄호 묶음 : jsonArray로 데이터 받기기
+        */
+        if (!homeData.isNullOrEmpty()) {
+            // json 데이터를 key값으로 조회
+            val jsonObject = JSONObject(homeData)
+            val title = jsonObject.getJSONObject("title")
+            val text = title.getString("text")
+            val iconUrl = title.getString("icon_url")
+            val titleValue = Title(text, iconUrl)
+
+        }
     }
 }
