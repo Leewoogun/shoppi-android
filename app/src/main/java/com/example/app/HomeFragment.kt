@@ -2,10 +2,12 @@ package com.example.app
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.SurfaceControl
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 class HomeFragment : Fragment() {
 
@@ -29,13 +31,20 @@ class HomeFragment : Fragment() {
 
         val button = view.findViewById<Button>(R.id.btn_enter_product_detail)
         button.setOnClickListener {
-            // FragmentManager는 앱 프래그먼트에서 프래그먼트를 추가, 삭제 또는 교체하고 백 스택에 추가하는 등의 작업을 실행하는 클래스
-            // HostActivity에 Fragment를 참조해야므로 parentFragmentManager
-            // Transaction : Fragment의 추가 삭제 교체를 요청
+
+            /*
+             FragmentManager는 앱 프래그먼트에서 프래그먼트를 추가, 삭제 또는 교체하고 백 스택에 추가하는 등의 작업을 실행하는 클래스
+             HostActivity에 Fragment를 참조해야므로 parentFragmentManager
+                     SurfaceControl.Transaction : Fragment의 추가 삭제 교체를 요청
             val transaction = parentFragmentManager.beginTransaction()
             // add 메소드를 사용하여 container view에 ProductDetailFragment 추가
             transaction.add(R.id.container_main, ProductDetailFragment())
             transaction.commit()
+            */
+
+            // navigation component를 이용하여 화면 전환
+            // navigate의 인자로는 action값의 id를 참조한다.
+            findNavController().navigate(R.id.action_home_to_product_detail)
 
         }
 
