@@ -1,6 +1,7 @@
 package com.example.app
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.SurfaceControl
 import android.view.View
@@ -45,8 +46,9 @@ class HomeFragment : Fragment() {
             // navigation component를 이용하여 화면 전환
             // navigate의 인자로는 action값의 id를 참조한다.
             findNavController().navigate(R.id.action_home_to_product_detail)
-
         }
-
+        val assetLoader = AssetLoader()
+        val homeData = assetLoader.getJsonString(requireContext(), "home.json" )
+        Log.d("homeData", homeData ?: "error")
     }
 }
