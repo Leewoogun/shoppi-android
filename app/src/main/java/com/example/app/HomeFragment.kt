@@ -7,6 +7,8 @@ import android.view.SurfaceControl
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.json.JSONObject
@@ -31,23 +33,9 @@ class HomeFragment : Fragment() {
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val button = view.findViewById<Button>(R.id.btn_enter_product_detail)
-        button.setOnClickListener {
+        val toolbarTitle = view.findViewById<TextView>(R.id.toolbar_home_title)
+        val toolbarIcon = view.findViewById<ImageView>(R.id.toolbar_home_icon)
 
-            /*
-             FragmentManager는 앱 프래그먼트에서 프래그먼트를 추가, 삭제 또는 교체하고 백 스택에 추가하는 등의 작업을 실행하는 클래스
-             HostActivity에 Fragment를 참조해야므로 parentFragmentManager
-                     SurfaceControl.Transaction : Fragment의 추가 삭제 교체를 요청
-            val transaction = parentFragmentManager.beginTransaction()
-            // add 메소드를 사용하여 container view에 ProductDetailFragment 추가
-            transaction.add(R.id.container_main, ProductDetailFragment())
-            transaction.commit()
-            */
-
-            // navigation component를 이용하여 화면 전환
-            // navigate의 인자로는 action값의 id를 참조한다.
-            findNavController().navigate(R.id.action_home_to_product_detail)
-        }
         val assetLoader = AssetLoader()
         val homeData = assetLoader.getJsonString(requireContext(), "home.json" )
         Log.d("homeData", homeData ?: "error")
@@ -64,8 +52,17 @@ class HomeFragment : Fragment() {
             val title = jsonObject.getJSONObject("title")
             val text = title.getString("text")
             val iconUrl = title.getString("icon_url")
-            val titleValue = Title(text, iconUrl)
 
+            toolbarTitle.text = text
+
+            /*
+            with인자 : Activity or Fragment
+            load인자 : url 주소
+            into인자 : 어떠한 리소스로 이미지 뷰에 할당할 것인가
+             */
+            GlideApp.with(this)
+                .load(iconUrl)
+                .into(toolbarIcon)
         }
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <!-- AppBarLayout는 CoordinatorLayout의 바로 아래 자식이어야 합니다.-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
