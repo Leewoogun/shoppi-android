@@ -11,6 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.gson.Gson
 import org.json.JSONObject
 
 class HomeFragment : Fragment() {
@@ -35,25 +38,31 @@ class HomeFragment : Fragment() {
 
         val toolbarTitle = view.findViewById<TextView>(R.id.toolbar_home_title)
         val toolbarIcon = view.findViewById<ImageView>(R.id.toolbar_home_icon)
+        val viewPager = view.findViewById<ViewPager2>(R.id.viewpager_home_banner)
+        val viewPagerIndicator = view.findViewById<TabLayout>(R.id.viewpager_home_banner_indicator)
+
 
         val assetLoader = AssetLoader()
-        val homeData = assetLoader.getJsonString(requireContext(), "home.json" )
-        Log.d("homeData", homeData ?: "error")
+        val homeJsonString = assetLoader.getJsonString(requireContext(), "home.json" )
+        Log.d("homeData", homeJsonString ?: "error")
 
 
         /*
         JSON 데이터 파싱
         중괄호 묶음 : jsonObject로 데이터 받기
-        대괄호 묶음 : jsonArray로 데이터 받기기
+        대괄호 묶음 : jsonArray로 데이터 받기
         */
-        if (!homeData.isNullOrEmpty()) {
-            // json 데이터를 key값으로 조회
-            val jsonObject = JSONObject(homeData)
-            val title = jsonObject.getJSONObject("title")
-            val text = title.getString("text")
-            val iconUrl = title.getString("icon_url")
+        if (!homeJsonString.isNullOrEmpty()) {
+            /*
+            Gson 라이브러리 사용시 jsonObject, jsonArray로 json 데이터를 받지 않고
+            바로 데이터 클래스 객체로 데이터를 받을 수 있다.
+             */
+            val gson = Gson()
+            val homeData = gson.fromJson(homeJsonString, HomeData::class.java)
 
-            toolbarTitle.text = text
+            // json 데이터를 key값으로 조회
+
+            toolbarTitle.text = homeData.title.text
 
             /*
             with인자 : Activity or Fragment
@@ -61,8 +70,16 @@ class HomeFragment : Fragment() {
             into인자 : 어떠한 리소스로 이미지 뷰에 할당할 것인가
              */
             GlideApp.with(this)
-                .load(iconUrl)
+                .load(homeData.title.iconUrl)
                 .into(toolbarIcon)
+
+            viewPager.adapter = HomeBannerAdapter().apply{
+                /*
+                sumbitList() 메서드는 새로운 데이터 목록을 RecyclerView에 표시하기 위해
+                호출된다.
+                 */
+                submitList(homeData.topBanners)
+            }
         }
-    }
+   }
 }
