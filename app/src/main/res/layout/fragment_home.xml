@@ -62,7 +62,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <TableLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/viewpager_home_banner_indicator"
                 android:layout_width="0dp"
                 android:layout_height="45dp"

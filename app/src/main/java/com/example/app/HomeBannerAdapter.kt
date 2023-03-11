@@ -1,5 +1,7 @@
 package com.example.app
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 /*
 목록 데이터를 가져와서 이를 표시하는 뷰를 만드는데 사용하는
@@ -49,11 +53,39 @@ class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHo
 
         fun bind(banner : Banner){
             // view와 바인딩을 해줌
+            loadImage(banner.backgroundImageUrl, bannerImageView)
+
+            bannerBadgeTextView.text = banner.badge.label
+            // ColorDrawable : #을 포함한 String 값을 Drawable 객체로 변환
+            bannerBadgeTextView.background = ColorDrawable(Color.parseColor(banner.badge.backgroundColor))
+            bannerTitleTextView.text = banner.label
+
+            loadImage(banner.productDetail.thumbnailImageUrl, bannerDetailThumbnailImageView)
+            bannerDetailBrandLabelTextView.text = banner.productDetail.brandName
+            bannerDetailProductLabelTextView.text = banner.productDetail.label
+            bannerDetailProductDiscountRateTextView.text = "${banner.productDetail.discountRate}"
+            calculateDiscountAmount(bannerDetailProductDiscountPriceTextView, banner.productDetail.discountRate, banner.productDetail.price)
+            applyPriceFormat(bannerDetailPriceTextView, banner.productDetail.price)
+        }
+
+        private fun calculateDiscountAmount(view : TextView, discountRate: Int, price: Int){
+            // roundToInt : 소수점을 반올림하여 표현
+            val discountPrice = (((100 - discountRate) / 100.0) * price).roundToInt()
+            applyPriceFormat(view, discountPrice)
+        }
+
+        private fun applyPriceFormat(view : TextView, price : Int){
+            val decimalFormat = DecimalFormat("#,###")
+            view.text = decimalFormat.format(price) + "원"
+        }
+
+        private fun loadImage(urlString : String, imageView : ImageView){
             // itemView : ViewHolder의 내부 View
             GlideApp.with(itemView)
-                .load(banner.backgroundImageUrl)
-                .into(bannerImageView)
+                .load(urlString)
+                .into(imageView)
         }
+
     }
 }
 
