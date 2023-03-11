@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import org.json.JSONObject
 
@@ -80,6 +81,29 @@ class HomeFragment : Fragment() {
                  */
                 submitList(homeData.topBanners)
             }
+            val pageWidth = resources.getDimension(R.dimen.viewpager_item_width)
+            val pageMargin = resources.getDimension(R.dimen.viewpager_item_margin)
+            // 디바이스 가로 길이 - 한 페이지 가로 길이 - 페이지 간 간격
+            val screenWidth = resources.displayMetrics.widthPixels
+            val offset = screenWidth - pageWidth - pageMargin
+
+
+            viewPager.offscreenPageLimit = 3
+            /*
+            viewPager 슬라이드간 애니메이션을 구현하는 코드
+            position : 사용자가 오른쪽으로 슬라이드하는지 왼쪽으로 슬라이드 하는지
+             */
+            viewPager.setPageTransformer { page, position ->
+                // width값 위치조정
+               page.translationX = position * -offset
+            }
+            /*
+            TabLayout Indicator 구현
+            인자가 interface인 경우 -> object로 구현 -> 필수 메소드 오버라이드 -> 메소드가 1개일 경우 람다식 가능
+             */
+            TabLayoutMediator(viewPagerIndicator, viewPager) { tab, position ->
+
+            }.attach()
         }
    }
 }
