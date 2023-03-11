@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.model
 
 data class Title(
     val text : String,

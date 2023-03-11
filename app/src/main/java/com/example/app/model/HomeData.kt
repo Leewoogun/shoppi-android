@@ -1,5 +1,6 @@
-package com.example.app
+package com.example.app.model
 
+import com.example.app.Banner
 import com.google.gson.annotations.SerializedName
 
 /*
