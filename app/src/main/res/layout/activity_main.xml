@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
     <!--호스트 Fragment 역할을 함 : FragmentContainerView-->
     <!--NavHostFragment : Fragment의 전환을 관리하는 Fragment-->
     <!--defaultNavHost : 백 버튼 이벤트를 받아와서 처리하는 것-->

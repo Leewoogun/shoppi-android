@@ -1,23 +1,24 @@
-package com.example.app
+package com.example.app.ui
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.SurfaceControl
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.app.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
-import org.json.JSONObject
 
 class HomeFragment : Fragment() {
+
+    private val viewModel : HomeViewModel by viewModels()
 
     // Fragment는 setContentView()가 없기 때문에 직접 객체화 시켜서 메모리에 올려야한다.
     // inflate(resource: Int, root: ViewGroup?, attachToRoot: Boolean)
@@ -63,24 +64,29 @@ class HomeFragment : Fragment() {
 
             // json 데이터를 key값으로 조회
 
-            toolbarTitle.text = homeData.title.text
+            viewModel.title.observe(viewLifecycleOwner) { title ->
+                toolbarTitle.text = title.text
 
-            /*
-            with인자 : Activity or Fragment
-            load인자 : url 주소
-            into인자 : 어떠한 리소스로 이미지 뷰에 할당할 것인가
-             */
-            GlideApp.with(this)
-                .load(homeData.title.iconUrl)
-                .into(toolbarIcon)
-
-            viewPager.adapter = HomeBannerAdapter().apply{
                 /*
-                sumbitList() 메서드는 새로운 데이터 목록을 RecyclerView에 표시하기 위해
-                호출된다.
+                with인자 : Activity or Fragment
+                load인자 : url 주소
+                into인자 : 어떠한 리소스로 이미지 뷰에 할당할 것인가
                  */
-                submitList(homeData.topBanners)
+                GlideApp.with(this)
+                    .load(title.iconUrl)
+                    .into(toolbarIcon)
             }
+
+            viewModel.topBanners.observe(viewLifecycleOwner) { banners ->
+                viewPager.adapter = HomeBannerAdapter().apply{
+                    /*
+                    sumbitList() 메서드는 새로운 데이터 목록을 RecyclerView에 표시하기 위해
+                    호출된다.
+                     */
+                    submitList(banners)
+                }
+            }
+
             val pageWidth = resources.getDimension(R.dimen.viewpager_item_width)
             val pageMargin = resources.getDimension(R.dimen.viewpager_item_margin)
             // 디바이스 가로 길이 - 한 페이지 가로 길이 - 페이지 간 간격
