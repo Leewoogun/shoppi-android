@@ -4,19 +4,19 @@ import android.content.Context
 import android.util.Log
 
 // JSON 포맷을 String으로 변환하는 클래스
-class AssetLoader(private val context : Context) {
+class AssetLoader {
 
     // use 확장함수 실행 시 나타날 수 있는 exception을 처리하는 함수
-    fun getJsonString(fileName : String) :String?{
+    fun getJsonString(context : Context, fileName : String) :String?{
         /*
         람다 식을 실행하고 예외가 발생한 경우 예외 객체를 반환 : Result<R>
          */
         return kotlin.runCatching {
-            loadAsset(fileName)
+            loadAsset(context, fileName)
         }.getOrNull()
     }
 
-    private fun loadAsset(fileName : String) : String{
+    private fun loadAsset(context : Context, fileName : String) : String{
         /*
           context를 통해 어플리케이션 전역에서 사용할 수 있는 정보를 접근,
           resouce나 datebase와 같은 시스템 자원에 접근

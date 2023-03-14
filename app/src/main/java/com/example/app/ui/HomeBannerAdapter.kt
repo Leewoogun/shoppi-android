@@ -1,4 +1,4 @@
-package com.example.app.ui.home
+package com.example.app
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,9 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.Banner
-import com.example.app.GlideApp
-import com.example.app.R
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
@@ -24,9 +21,7 @@ VH : RecyclerView.viewHoler 클래스의 서브 클래스를 만들어 사용
 ListAdapter의 역할 : 데이터의 list를 받아서 0번째부터 순차적으로 viewHolder와 바인딩을함
 Layout은 그대로 유지한채로 Data만 업데이트 <- ListAdapter
  */
-class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(
-    BannerDiffCallBack()
-) {
+class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(BannerDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeBannerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home_banner, parent, false)
