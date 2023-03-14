@@ -3,7 +3,7 @@ package com.example.app.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.app.Banner
+import com.example.app.model.Banner
 import com.example.app.model.Title
 import com.example.app.repository.HomeRepository
 
