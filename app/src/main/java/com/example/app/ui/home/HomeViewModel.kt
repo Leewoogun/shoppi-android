@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.app.model.Banner
 import com.example.app.model.Title
-import com.example.app.repository.HomeRepository
+import com.example.app.repository.home.HomeRepository
 
 /*
 ViewModel 클래스는 수명 주기를 고려하여 UI 관련 데이터를 저장하고 관리하도록 설계되었습니다.

@@ -1,4 +1,4 @@
-package com.example.app.repository
+package com.example.app.repository.category
 
 import com.example.app.model.Category
 import com.example.app.network.ApiClient
