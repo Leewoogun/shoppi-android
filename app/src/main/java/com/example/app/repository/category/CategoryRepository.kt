@@ -10,7 +10,7 @@ CategoryDataSource에 데이터를 요청
  */
 class CategoryRepository(private val remoteDataSource: CategoryRemoteDataSource) {
 
-    // 멈추고 다시 시작할 수 있는 함수수
+    // 멈추고 다시 시작할 수 있는 함수
    suspend fun getCategories() : List<Category>{
         return remoteDataSource.getCategories()
     }
