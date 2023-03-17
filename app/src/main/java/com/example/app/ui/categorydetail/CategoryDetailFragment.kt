@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ConcatAdapter
 import com.example.app.common.KEY_CATEGORY_ID
 import com.example.app.common.KEY_CATEGORY_LABEL
 import com.example.app.databinding.FragmentCategoryBinding
@@ -33,7 +34,26 @@ class CategoryDetailFragment : Fragment() {
         bundle 객체에 접근
         */
         val categoryId = requireArguments().getString(KEY_CATEGORY_ID)
+
+        setToolbar()
+        setListAdapter()
+    }
+
+    private fun setToolbar(){
         val categoryLabel = requireArguments().getString(KEY_CATEGORY_LABEL)
         binding.toolbarCategoryDetail.title = categoryLabel
+    }
+
+    private fun setListAdapter(){
+        /*
+        concatAdapter : 여러개의 어댑터를 하나로 모을 수 있음
+        여러 가지 view 타입을 하나의 어댑터로 배치할 수 있음
+         */
+
+        val titleAdapter = CategorySectionTitleAdapter()
+        val promotionAdapter = CategoryPromotionAdapter()
+        binding.rvCategoryDetail.adapter = ConcatAdapter(titleAdapter, promotionAdapter)
+
+
     }
 }

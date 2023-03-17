@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,14 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- titleTextAppearance : toolbar의 textStyle-->
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_category_detail"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_gnb_back" />
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:navigationIcon="@drawable/ic_gnb_back"
+                app:titleTextAppearance="@style/TextMedium.Bold"
+                app:contentInsetStartWithNavigation="0dp"
+                tools:title="여성패션" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -30,6 +33,8 @@
             android:id="@+id/rv_category_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
