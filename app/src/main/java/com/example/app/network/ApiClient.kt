@@ -1,12 +1,14 @@
 package com.example.app.network
 
 import com.example.app.model.Category
+import com.example.app.model.CategoryDetail
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 // 어떤 주소와 통신을 할 것인가?
 interface ApiClient {
@@ -15,6 +17,9 @@ interface ApiClient {
     // URL 주소가 바뀌는 부분만 설정 (엔드포인트)
     @GET("categories.json")
     suspend fun getCategories() : List<Category>
+
+    @GET("fashion_female.json")
+    suspend fun getCategoryDetail() : CategoryDetail
 
     companion object{
 

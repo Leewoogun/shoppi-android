@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.example.app.common.KEY_CATEGORY_ID
 import com.example.app.common.KEY_CATEGORY_LABEL
 import com.example.app.databinding.FragmentCategoryBinding
 import com.example.app.databinding.FragmentCategoryDetailBinding
+import com.example.app.ui.common.ViewModelFactory
 
 class CategoryDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoryDetailBinding
+    // ViewModelFactory에 viewModel 생성을 위임함
+    private val viewModel : CategoryDetailViewModel by viewModels {ViewModelFactory(requireContext())}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +57,10 @@ class CategoryDetailFragment : Fragment() {
         val titleAdapter = CategorySectionTitleAdapter()
         val promotionAdapter = CategoryPromotionAdapter()
         binding.rvCategoryDetail.adapter = ConcatAdapter(titleAdapter, promotionAdapter)
-
+        viewModel.promotion.observe(viewLifecycleOwner){ promotion ->
+            titleAdapter.submitList(listOf(promotion.title))
+            promotionAdapter.submitList(promotion.items)
+        }
 
     }
 }
