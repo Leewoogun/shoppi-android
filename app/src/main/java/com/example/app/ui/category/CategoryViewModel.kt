@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.model.Category
 import com.example.app.repository.category.CategoryRepository
+import com.example.app.ui.common.Event
 import kotlinx.coroutines.launch
 
 /*
@@ -16,8 +17,8 @@ class CategoryViewModel(private val categoryRepository: CategoryRepository) : Vi
     private val _items = MutableLiveData<List<Category>>()
     val items : LiveData<List<Category>> = _items
 
-    private val _openCategoryEvent = MutableLiveData<Category>()
-    val openCategoryEvent : LiveData<Category> = _openCategoryEvent
+    private val _openCategoryEvent = MutableLiveData<Event<Category>>()
+    val openCategoryEvent : LiveData<Event<Category>> = _openCategoryEvent
 
 
     init{
@@ -26,7 +27,7 @@ class CategoryViewModel(private val categoryRepository: CategoryRepository) : Vi
 
     // view에서 호출
     fun openCategoryDetail(category : Category){
-        _openCategoryEvent.value = category
+        _openCategoryEvent.value = Event(category)
     }
 
 

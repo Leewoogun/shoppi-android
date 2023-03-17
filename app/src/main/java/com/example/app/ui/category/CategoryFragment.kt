@@ -8,9 +8,14 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.app.R
+import com.example.app.common.KEY_CATEGORY_ID
+import com.example.app.common.KEY_CATEGORY_LABEL
 import com.example.app.databinding.FragmentCategoryBinding
+import com.example.app.model.Category
+import com.example.app.ui.common.EventObserver
 import com.example.app.ui.common.ViewModelFactory
 
 class CategoryFragment : Fragment() {
@@ -37,9 +42,9 @@ class CategoryFragment : Fragment() {
             Log.d("category", "카테고리 바인딩 완료")
         }
 
-        viewModel.openCategoryEvent.observe(viewLifecycleOwner){
+        viewModel.openCategoryEvent.observe(viewLifecycleOwner, EventObserver{
             openCategoryDetail(it.categoryId, it.label)
-        }
+        })
     }
 
     /*
@@ -48,8 +53,8 @@ class CategoryFragment : Fragment() {
     private fun openCategoryDetail(categoryId : String, categoryLabel : String){
         // 화면 이동 : UI의 상태가 변화되었다. => ViewModel에서 호출
         findNavController().navigate(R.id.action_category_to_category_detail,bundleOf(
-            "category_id" to categoryId,
-            "category_label" to categoryLabel
+            KEY_CATEGORY_ID to categoryId,
+            KEY_CATEGORY_LABEL to categoryLabel
         ))
     }
 }
