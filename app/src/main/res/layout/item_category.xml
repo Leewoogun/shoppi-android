@@ -4,29 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.app.ui.category.CategoryViewModel" />
+
         <variable
             name="category"
             type="com.example.app.model.Category" />
     </data>
 
+    <!--onClick : 사용자가 터치했을 때 발생하는 이벤트-->
+    <!--함수는 () -> 함수 형태로 호출한다.-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/background_bluegrey_r20">
+        android:background="@drawable/background_bluegrey_r20"
+        android:onClick="@{() -> viewModel.openCategoryDetail(category)}">
 
         <!--이미지 뷰를 커스텀해서 보여주는 뷰-->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_category_thumbnail"
+            imageUrl="@{category.thumbnailImageUrl}"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:scaleType="centerCrop"
-            imageUrl="@{category.thumbnailImageUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,13 +43,13 @@
         <TextView
             android:id="@+id/tv_category_badge"
             style="@style/TextCaption2.White.Bold"
+            isVisible="@{category.updated}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
             android:background="@drawable/background_purple_r24"
             android:paddingStart="4dp"
             android:paddingTop="4dp"
-            isVisible="@{category.updated}"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
             android:text="@string/label_category_new"
