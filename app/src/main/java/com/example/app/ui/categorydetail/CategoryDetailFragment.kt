@@ -53,10 +53,13 @@ class CategoryDetailFragment : Fragment() {
         concatAdapter : 여러개의 어댑터를 하나로 모을 수 있음
         여러 가지 view 타입을 하나의 어댑터로 배치할 수 있음
          */
-
+        val topSellingSectionAdapter = CategoryTopSellingSectionAdapter()
         val titleAdapter = CategorySectionTitleAdapter()
         val promotionAdapter = CategoryPromotionAdapter()
-        binding.rvCategoryDetail.adapter = ConcatAdapter(titleAdapter, promotionAdapter)
+        binding.rvCategoryDetail.adapter = ConcatAdapter(topSellingSectionAdapter, titleAdapter, promotionAdapter)
+        viewModel.topSelling.observe(viewLifecycleOwner){ topSelling ->
+            topSellingSectionAdapter.submitList(listOf(topSelling))
+        }
         viewModel.promotion.observe(viewLifecycleOwner){ promotion ->
             titleAdapter.submitList(listOf(promotion.title))
             promotionAdapter.submitList(promotion.items)
