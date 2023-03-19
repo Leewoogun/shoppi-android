@@ -6,3 +6,4 @@ package com.example.app.common
 
 const val KEY_CATEGORY_ID = "category_Id"
 const val KEY_CATEGORY_LABEL = "category_Label"
+const val KEY_PRODUCT_ID = "product_id"

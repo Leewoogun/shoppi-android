@@ -27,7 +27,7 @@ VH : RecyclerView.viewHoler 클래스의 서브 클래스를 만들어 사용
 ListAdapter의 역할 : 데이터의 list를 받아서 0번째부터 순차적으로 viewHolder와 바인딩을함
 Layout은 그대로 유지한채로 Data만 업데이트 <- ListAdapter
  */
-class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(
+class HomeBannerAdapter(private val viewModel : HomeViewModel) : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(
     BannerDiffCallBack()
 ) {
 
@@ -49,11 +49,12 @@ class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHo
     }
 
     // view : Home banner에서 inflate 시킬 레이아웃웃
-    class HomeBannerViewHolder(private val binding: ItemHomeBannerBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class HomeBannerViewHolder(private val binding: ItemHomeBannerBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(banner : Banner){
             // view와 바인딩을 해줌
             binding.banner = banner
+            binding.viewModel = viewModel
             binding.executePendingBindings()
 
         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.app.model.Banner
 import com.example.app.model.Title
 import com.example.app.repository.home.HomeRepository
+import com.example.app.ui.common.Event
 
 /*
 ViewModel 클래스는 수명 주기를 고려하여 UI 관련 데이터를 저장하고 관리하도록 설계되었습니다.
@@ -22,8 +23,15 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     private val _topBanners = MutableLiveData<List<Banner>>()
     val topBanners : LiveData<List<Banner>> = _topBanners
 
+    private val _openProductDetail = MutableLiveData<Event<String>>()
+    val openProductDetail : LiveData<Event<String>> = _openProductDetail
+
     init{
         loadHomeData()
+    }
+
+    fun openProductDetail(productID : String){
+        _openProductDetail.value = Event(productID)
     }
     private fun loadHomeData(){
         val homeData = homeRepository.getHomeData()
