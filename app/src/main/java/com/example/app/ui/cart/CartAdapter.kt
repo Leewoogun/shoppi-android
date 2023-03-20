@@ -8,6 +8,7 @@ import com.example.app.databinding.ItemCartSectionHeaderBinding
 import com.example.app.model.CartHeader
 import com.example.app.model.CartItem
 import com.example.app.model.CartProduct
+import okhttp3.internal.notify
 
 
 private const val VIEW_TYPE_HEADER = 0
@@ -60,6 +61,18 @@ class CartAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun getItemCount(): Int {
         return cartProducts.size
+    }
+
+    fun submitHeaderAndItemList(items : List<CartItem>){
+        val itemGroups = items.groupBy { it.brandName }
+        val products = mutableListOf<CartProduct>()
+        itemGroups.entries.forEach { entry ->
+            val header = CartHeader(entry.key)
+            products.add(header)
+            products.addAll(entry.value)
+        }
+        cartProducts.addAll(products)
+        notifyItemRangeInserted(cartProducts.size, products.size)
     }
 
     class HeaderViewHolder(private val binding : ItemCartSectionHeaderBinding) : RecyclerView.ViewHolder(binding.root){
