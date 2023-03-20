@@ -9,11 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import com.example.app.common.KEY_CATEGORY_ID
 import com.example.app.common.KEY_CATEGORY_LABEL
-import com.example.app.databinding.FragmentCategoryBinding
 import com.example.app.databinding.FragmentCategoryDetailBinding
+import com.example.app.ui.common.ProductClickListener
+import com.example.app.ui.common.ProductPromotionAdapter
 import com.example.app.ui.common.ViewModelFactory
 
-class CategoryDetailFragment : Fragment() {
+class CategoryDetailFragment : Fragment(), ProductClickListener {
 
     private lateinit var binding : FragmentCategoryDetailBinding
     // ViewModelFactory에 viewModel 생성을 위임함
@@ -54,8 +55,8 @@ class CategoryDetailFragment : Fragment() {
         여러 가지 view 타입을 하나의 어댑터로 배치할 수 있음
          */
         val topSellingSectionAdapter = CategoryTopSellingSectionAdapter()
-        val titleAdapter = CategorySectionTitleAdapter()
-        val promotionAdapter = CategoryPromotionAdapter()
+        val titleAdapter = SectionTitleAdapter()
+        val promotionAdapter = ProductPromotionAdapter(this)
         binding.rvCategoryDetail.adapter = ConcatAdapter(topSellingSectionAdapter, titleAdapter, promotionAdapter)
         viewModel.topSelling.observe(viewLifecycleOwner){ topSelling ->
             topSellingSectionAdapter.submitList(listOf(topSelling))
@@ -65,5 +66,9 @@ class CategoryDetailFragment : Fragment() {
             promotionAdapter.submitList(promotion.items)
         }
 
+    }
+
+    override fun onProductClick(productId: String) {
+        TODO("Not yet implemented")
     }
 }

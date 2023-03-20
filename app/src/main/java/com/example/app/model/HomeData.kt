@@ -10,6 +10,6 @@ json 데이터 key의 이름과 변수 이름이 같아야함 => SerializedName 
  */
 data class HomeData(
     val title : Title,
-    @SerializedName("top_banners") val topBanners : List<Banner>
-
+    @SerializedName("top_banners") val topBanners : List<Banner>,
+    val promotions : Promotion
 )

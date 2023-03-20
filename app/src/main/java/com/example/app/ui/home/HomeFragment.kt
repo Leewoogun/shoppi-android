@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
+import androidx.recyclerview.widget.ConcatAdapter
 import com.example.app.*
 import com.example.app.common.KEY_PRODUCT_ID
 import com.example.app.databinding.FragmentHomeBinding
-import com.example.app.ui.common.EventObserver
-import com.example.app.ui.common.ViewModelFactory
-import com.google.android.material.tabs.TabLayout
+import com.example.app.ui.categorydetail.SectionTitleAdapter
+import com.example.app.ui.common.*
 import com.google.android.material.tabs.TabLayoutMediator
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ProductClickListener {
 
     private val viewModel : HomeViewModel by viewModels { ViewModelFactory(requireContext()) }
     private lateinit var binding : FragmentHomeBinding
@@ -46,6 +43,7 @@ class HomeFragment : Fragment() {
         setToolbar()
         setNavigation()
         setTopBanners()
+        setListAdapter()
    }
     private fun setToolbar() {
         viewModel.title.observe(viewLifecycleOwner) { title ->
@@ -98,5 +96,20 @@ class HomeFragment : Fragment() {
 
             }.attach()
         }
+    }
+
+    private fun setListAdapter(){
+        val titleAdapter = SectionTitleAdapter()
+        val promotionAdapter = ProductPromotionAdapter(this)
+        binding.rvHome.adapter = ConcatAdapter(titleAdapter, promotionAdapter)
+        viewModel.promotions.observe(viewLifecycleOwner){ promotions ->
+            titleAdapter.submitList(listOf(promotions.title))
+            promotionAdapter.submitList(promotions.items)
+        }
+    }
+    override fun onProductClick(productId: String) {
+        findNavController().navigate(R.id.action_home_to_product_detail, bundleOf(
+            KEY_PRODUCT_ID to "desk-1"
+        ))
     }
 }
