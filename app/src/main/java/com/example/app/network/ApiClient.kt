@@ -2,6 +2,7 @@ package com.example.app.network
 
 import com.example.app.model.Category
 import com.example.app.model.CategoryDetail
+import com.example.app.model.Product
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,6 +21,9 @@ interface ApiClient {
 
     @GET("fashion_female.json")
     suspend fun getCategoryDetail() : CategoryDetail
+
+    @GET("products/{productId}.json")
+    suspend fun getProductDetail(@Path("productId") productId : String) : Product
 
     companion object{
 
