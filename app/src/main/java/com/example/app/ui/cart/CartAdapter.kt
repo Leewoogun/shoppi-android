@@ -12,7 +12,7 @@ import okhttp3.internal.notify
 
 
 private const val VIEW_TYPE_HEADER = 0
-private const val VIEW_TYPE_ITEM = 0
+private const val VIEW_TYPE_ITEM = 1
 /*
 아이템의 목록을 관리하는 adapter
  */

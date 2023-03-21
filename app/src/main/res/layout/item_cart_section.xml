@@ -88,13 +88,15 @@
                 app:layout_constraintStart_toStartOf="@id/tv_cart_item_type"
                 app:layout_constraintTop_toBottomOf="@id/tv_cart_item_type" />
 
+            <!-- int값을 바인딩 할 때는 String.valueOf()를 사용하여 -->
+            <!-- string으로 변환해야 한다.-->
             <TextView
                 android:id="@+id/tv_cart_item_amount"
                 style="@style/TextSubtitle2.Black02.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@{item.amount}"
+                android:text="@{String.valueOf(item.amount)}"
                 app:layout_constraintBottom_toBottomOf="@id/btn_minus_cart_item"
                 app:layout_constraintStart_toEndOf="@id/btn_minus_cart_item"
                 app:layout_constraintTop_toTopOf="@id/btn_minus_cart_item"
